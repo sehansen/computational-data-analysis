@@ -3,8 +3,8 @@ from numpy.linalg   import lstsq, inv, solve
 from numpy.random   import rand, randn, seed
 from scipy.io       import loadmat
 from sys            import exit
-t = transpose
 import matplotlib.pyplot as plt
+t = transpose
 
 resSumSq = lambda r: sum(r*r)
 
