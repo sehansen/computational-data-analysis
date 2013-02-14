@@ -1,0 +1,17 @@
+STATUS:
+0=CHURN
+1=ACTIVE
+
+PAYMENT_TYPE:
+1=CREDIT CARD
+2=CASH
+3=BANK
+
+VALUE_SEGMENTATION:
+1=LOW
+2=MEDIUM
+3=HUGH
+4=VERY HIGH
+
+XXX_D, _M, _Y:
+day-, month- and year-component respectively
