@@ -20,7 +20,9 @@ churnGNames = churnFile["churn2_names"][0]
 def month_transform(m):
     if 0 < m and m < 8: return m + 12
     else: return m
+
 Xtmp = np.concatenate([churnGeneral[:,0:4], t(np.atleast_2d(map(month_transform,churnGeneral[:,4]))), churnGeneral[:,5:]],1)
+
 # generalPCA = PCA()
 
 # generalPCA.fit(scale(Xtmp))
@@ -29,6 +31,7 @@ Xtmp = np.concatenate([churnGeneral[:,0:4], t(np.atleast_2d(map(month_transform,
 
 # print generalPCA.components_[0]
 # print generalPCA.explained_variance_ratio_
+
 
 # filter out customers with status 0
 churnFilter = np.nonzero(churnGeneral[:,-2])
@@ -72,11 +75,21 @@ for i in xrange(1,13):
             plt.yticks([])
             plt.title(names[i-1])
 
+
+def corplot(X):
+    plt.figure()
+    plt.imshow(np.corrcoef(t(X)), interpolation="nearest")
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Churn dataset processing - sampled version')
     parser.add_argument('-s', '--show', action="store_true",
                        help='an integer for the accumulator')
 
     args = parser.parse_args()
+    if not args.show: plt.savefig('init2.png')
+    corplot(churnGeneral)
     if args.show: plt.show()
-    else: plt.savefig('init2.png')
+    else: 
+        plt.savefig('corrplot.png')
