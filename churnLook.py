@@ -56,4 +56,13 @@ churnFiltered.view('float64,float64,float64,float64,float64,float64,float64,floa
 # #             plt.plot(churnGeneral[:,i],churnGeneral[:,j],'.')
 # #             plt.xticks([])
 # #             plt.yticks([])
-# plt.savefig("initplot.png")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Churn dataset processing - nonsampled version')
+    parser.add_argument('-s', '--show', action="store_true",
+                       help='an integer for the accumulator')
+
+    args = parser.parse_args()
+    if args.show: plt.show()
+    else: plt.savefig("initplot.png")

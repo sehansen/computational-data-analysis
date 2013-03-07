@@ -4,6 +4,7 @@ from sklearn.preprocessing  import scale
 import matplotlib.pyplot as plt
 import numpy as np
 import datetime as dt
+import argparse
 t = np.transpose
 font = {'family' : 'normal',
         'size'   : 8}
@@ -39,22 +40,22 @@ np.random.shuffle(idx)
 Xsmall = Xtmp[idx[:999],:]
 
 def convert_to_days_since(a,b,c):
-	years = Xsmall[:,a]
-	months = Xsmall[:,b]
-	days = Xsmall[:,c]
+    years = Xsmall[:,a]
+    months = Xsmall[:,b]
+    days = Xsmall[:,c]
 
-	def date2(y,m,d): 
-		if y > 0 and m > 0 and d > 0: 
-			return dt.date(int(y),int(m),int(d)) 
-		else: 
-			# Convert back to 0 later
-			return dt.date(1900,1,1) 
+    def date2(y,m,d): 
+        if y > 0 and m > 0 and d > 0: 
+            return dt.date(int(y),int(m),int(d)) 
+        else: 
+            # Convert back to 0 later
+            return dt.date(1900,1,1) 
 
-	datevect = np.vectorize(date2)
+    datevect = np.vectorize(date2)
 
-	dates = datevect(years,months,days)
-	dayssince = dates - dates.min()
-	return [i.days for i in dayssince]
+    dates = datevect(years,months,days)
+    dayssince = dates - dates.min()
+    return [i.days for i in dayssince]
 
 first_renewal = convert_to_days_since(9,8,7)
 last_renewal = convert_to_days_since(13,12,11)
@@ -70,5 +71,12 @@ for i in xrange(1,13):
             plt.xticks([])
             plt.yticks([])
             plt.title(names[i-1])
-plt.savefig('init2.png')
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Churn dataset processing - sampled version')
+    parser.add_argument('-s', '--show', action="store_true",
+                       help='an integer for the accumulator')
+
+    args = parser.parse_args()
+    if args.show: plt.show()
+    else: plt.savefig('init2.png')
